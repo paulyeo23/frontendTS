@@ -1,8 +1,18 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "./NavBar.css";
 import "./Circle.css";
-
+import { useDispatch, useSelector } from "react-redux";
+// import { updateEmployeeList } from "../../store/employees";
+import { employeeList } from "../../Interfaces/interfaces";
+import { useEffect } from "react";
+import employees, { getAllEmployees } from "../../store/employees";
+import { useAppDispatch } from "../../store/hooks";
 const NavBar: React.FC = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAllEmployees());
+  }, []);
+
   return (
     <nav className="navBar">
       <Container>

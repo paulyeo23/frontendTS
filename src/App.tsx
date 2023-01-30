@@ -3,7 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import NavBar from "./Components/NavBar/NavBar";
-import EmployeeCell from "./Components/HomePage/EmployeeCell";
+import EmployeeCell from "./Components/HomePage/EmployeeCells/EmployeeCell";
+import { AllEmployeesPage } from "./Components/HomePage/AllEmployeesPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       />
       <body>
         <NavBar />
+        <AllEmployeesPage />
       </body>
     </html>
   );

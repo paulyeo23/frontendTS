@@ -1,4 +1,4 @@
-import { Axios, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 export interface newEmployeeData {
   name: string;
@@ -18,28 +18,43 @@ export interface errormessage {
   errormessage: string;
 }
 
-export interface newEmployeeForm extends newEmployeeData {
-  name: HTMLInputElement & string;
-  department: HTMLInputElement & string;
-  salary: HTMLInputElement & number;
+// export interface newEmployeeData extends newEmployeeData {
+//   name: HTMLInputElement & string;
+//   department: HTMLInputElement & string;
+//   salary: HTMLInputElement & number;
+// }
+
+export interface employeeForm extends newEmployeeData {
+  id: number;
 }
 
-export interface state {
-  employeeList: employeeList | [];
-  employeeForm: newEmployeeForm | {};
+export interface errorMessage {
+  errorMessage: string;
+}
+
+export interface responseData {
+  employees: employeeList["employees"] | undefined;
+  employee: employeeData | undefined;
+  errorMessage: string | undefined;
+}
+
+export interface state extends Omit<employeeList, "employees"> {
+  employees: employeeData[] | undefined;
+  isLoading: boolean;
+  status: number | undefined;
+  errorMessage: string | undefined;
+}
+
+export interface reducer {
+  allEmployees: state;
 }
 
 export interface crud {
-  getAllEmployees: () => { response: Promise<AxiosResponse> };
-  createEmployee: (form: {
-    name: string;
-    salary: number;
-    department: string;
-  }) => { response: Promise<AxiosResponse> };
-  updateEmployee: (form: {
-    name: string;
-    salary: number;
-    department: string;
-  }) => { response: Promise<AxiosResponse> };
-  deleteEmployee: () => { response: Promise<AxiosResponse> };
+  getAllEmployees: () => Promise<AxiosResponse<responseData>>;
+  getOneEmployee: (id: number) => Promise<AxiosResponse<responseData>>;
+  createEmployee: (
+    form: newEmployeeData
+  ) => Promise<AxiosResponse<responseData>>;
+  updateEmployee: (form: employeeData) => Promise<AxiosResponse<responseData>>;
+  deleteEmployee: (id: number) => Promise<AxiosResponse<responseData>>;
 }
